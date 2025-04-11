@@ -1,0 +1,279 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ÆSLAN | Supplements Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #000, #000);
+      color: white;
+      padding: 20px;
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo { display: flex; align-items: center; gap: 15px; }
+    .logo h1 { font-size: 2rem; }
+    .logo p { font-size: 1rem; }
+    .contact-info {
+      display: flex;
+      gap: 15px;
+      font-size: 0.9rem;
+    }
+    .header-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .header-right input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 200px;
+    }
+    .header-right button {
+      padding: 10px 15px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .header-right button:hover {
+      background: #000;
+      color: white;
+    }
+    nav {
+      background: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid #ddd;
+    }
+    nav a {
+      text-decoration: none;
+      color: #060606;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover { color: #000000; }
+    nav .dropdown { position: relative; }
+    nav .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      padding: 10px;
+      z-index: 1;
+      border-radius: 5px;
+    }
+    nav .dropdown:hover .dropdown-content { display: block; }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: #5e5d5e;
+      color: #000;
+    }
+    .hero .button {
+      padding: 10px 20px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .features, .reviews {
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+    }
+    .features-container, .reviews-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .feature, .review {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    .products {
+      padding: 40px 20px;
+      background: #6f6f6f;
+      text-align: center;
+    }
+    .products .product {
+      display: inline-block;
+      text-align: center;
+      margin: 20px;
+    }
+    .products img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #020202;
+      color: white;
+    }
+    footer a {
+      color: #f4e4f8;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo">
+      <h1>ÆSLAN</h1>
+      <p>Магазин дополнительных средств</p>
+    </div>
+    <div class="contact-info">
+      <span>Call us: +123 456 7890</span>
+      <span>Email: support@Aslan.com</span>
+    </div>
+    <div class="header-right" id="auth-section">
+      <input type="text" placeholder="Search products...">
+      <button>Cart</button>
+      <button>Orders</button>
+      <button>Deals</button>
+      <button id="auth-button">Вход</button>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">Products</a>
+  <a href="#">About Us</a>
+  <div class="dropdown">
+    <a href="#">More</a>
+    <div class="dropdown-content">
+      <a href="#">FAQ</a>
+      <a href="#">Blog</a>
+      <a href="#">Community</a>
+    </div>
+  </div>
+  <a href="#">Contact</a>
+</nav>
+
+<section class="hero">
+  <h2>Будьте всегда здоровы с нашей продукцией</h2>
+  <p>Откройте для себя силу натуральных ингредиентов, созданных для здоровья.</p>
+  <a href="#products" class="button">Shop Now</a>
+</section>
+
+<section class="features">
+  <h2>Почему выбирают нас?</h2>
+  <div class="features-container">
+    <div class="feature">
+      <h3>Премиальное качество</h3>
+      <p>Наши препараты изготовлены из проверенных компонентов.</p>
+    </div>
+    <div class="feature">
+      <h3>Экспертные формулы</h3>
+      <p>Разработано медиками для ваших нужд.</p>
+    </div>
+    <div class="feature">
+      <h3>Быстрая доставка</h3>
+      <p>Получите ваш заказ быстро и удобно.</p>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="products">
+  <div class="product">
+    <img src="./img/WhatsApp Image 2025-02-17 at 11.19.55.jpeg" alt="Product 1">
+    <h3>Амбросан</h3>
+    <p>Повышает синтез, секрецию сурфактанта и блокирует его распад.</p>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="product">
+    <img src="./img/WhatsApp Image 2025-02-17 at 11.19.56.jpeg" alt="Product 2">
+    <h3>Долгит</h3>
+    <p>Эффективен при болях в суставах и мышцах.</p>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="product">
+    <img src="./img/Рисунок3.jpg" alt="Product 3">
+    <h3>Индапамид</h3>
+    <p>Контроль давления и укрепление сосудов.</p>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+</section>
+
+<section class="reviews">
+  <h2>Отзывы клиентов</h2>
+  <div class="reviews-container">
+    <div class="review">
+      <img src="img/Рисунок2.png" alt="Customer 1">
+      <h3>Иван</h3>
+      <p>"Продукция качественная и эффективная!"</p>
+      <div>★★★★★</div>
+    </div>
+    <div class="review">
+      <img src="img/Рисунок2.png" alt="Customer 2">
+      <h3>Мария</h3>
+      <p>"Быстрая доставка, рекомендую."</p>
+      <div>★★★★★</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2024 ÆSLAN. Все права защищены.</p>
+  <a href="#">Политика конфиденциальности</a>
+  <a href="#">Условия использования</a>
+</footer>
+
+<a href="index2.html" class="button" style="display: inline-block; padding: 10px 20px; background: #000; color: white; text-decoration: none; border-radius: 5px; margin: 20px;">Перейти в журнал товаров</a>
+
+<script>
+  const authButton = document.getElementById("auth-button");
+  const authSection = document.getElementById("auth-section");
+  const user = localStorage.getItem("user");
+
+  if (user) {
+    authSection.innerHTML += `
+      <span style="color: white;">Привет, ${user}</span>
+      <button id="logout-button" style="background: #ff4d4d; color: white; padding: 10px;">Выйти</button>
+    `;
+    authButton.remove();
+    document.getElementById("logout-button").addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.reload();
+    });
+  } else {
+    authButton.addEventListener("click", () => {
+      window.location.href = "regist.html";
+    });
+  }
+</script>
+
+</body>
+</html>

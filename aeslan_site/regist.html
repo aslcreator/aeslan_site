@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Регистрация и вход | ÆSLAN</title>
+  <style>
+    body {
+      background-color: #808080;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      width: 400px;
+      border-radius: 10px;
+      border: 4px solid black;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    input, button {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .button {
+      background: black;
+      color: white;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #333;
+    }
+
+    #qrcode {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+
+  <!-- Библиотеки -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/8.0.3/otpauth.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- 📝 Регистрация -->
+  <div class="form-container">
+    <h2>Регистрация</h2>
+    <input type="text" id="newUsername" placeholder="Новый логин">
+    <input type="password" id="newPassword" placeholder="Новый пароль">
+    <button onclick="registerUser()" class="button">Зарегистрироваться</button>
+  </div>
+
+  <!-- 🔐 OTP-код -->
+  <div class="form-container" id="otp-section" style="display: none;">
+    <h2>Подтвердите вход</h2>
+    <p>Отсканируйте QR-код и введите 6-значный код из Google Authenticator:</p>
+    <div id="qrcode"></div>
+    <input type="text" id="otpCode" placeholder="Введите код OTP">
+    <button onclick="verifyOtp()" class="button">Подтвердить</button>
+  </div>
+
+  <script>
+    // Глобально: QR и TOTP
+    let secret, totp;
+    let currentUser = null;
+
+    // Получить пользователей
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("users")) || [];
+    }
+
+    // Сохранить пользователей
+    function saveUsers(users) {
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    // 📝 Регистрация
+    function registerUser() {
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value;
+
+      if (!username || !password) {
+        alert("Заполните все поля!");
+        return;
+      }
+
+      let users = getUsers();
+
+      if (users.some(u => u.username === username)) {
+        alert("Такой пользователь уже существует!");
+        return;
+      }
+
+      users.push({ username, password });
+      saveUsers(users);
+      currentUser = username;
+
+      // Переход к вводу OTP
+      document.querySelector('.form-container').style.display = 'none';
+      document.getElementById('otp-section').style.display = 'block';
+
+      // Генерация OTP и QR-кода
+      secret = new OTPAuth.Secret({ size: 20 });
+      totp = new OTPAuth.TOTP({
+        issuer: "ÆSLAN",
+        label: username,
+        algorithm: "SHA1",
+        digits: 6,
+        period: 30,
+        secret: secret
+      });
+
+      const otpUrl = totp.toString();
+
+      new QRCode(document.getElementById("qrcode"), {
+        text: otpUrl,
+        width: 150,
+        height: 150
+      });
+    }
+
+    // ✅ Проверка OTP
+    function verifyOtp() {
+      const otpInput = document.getElementById("otpCode").value.trim();
+      const valid = totp.validate({ token: otpInput, window: 1 }) !== null;
+
+      if (valid) {
+        alert("Вход успешен!");
+        localStorage.setItem("user", currentUser);
+        window.location.href = "index.html";
+      } else {
+        alert("Неверный код. Попробуйте снова.");
+      }
+    }
+  </script>
+
+</body>
+</html>
